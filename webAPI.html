@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<style></style>
+</head>
+
+<body>
+	<div id="time">2022-10-13</div>
+	<!-- DOM -->
+	<script>
+		// 获取id
+		var timer = document.getElementById("time"); //id是大小写敏感的字符串
+		console.log(timer); //返回的是都对象
+	</script>
+	<ul>
+		<li>绿肥红瘦</li>
+		<li>绿肥红瘦</li>
+		<li>绿肥红瘦</li>
+	</ul>
+	<script>
+		//获取标签
+		var lis = document.getElementsByTagName("ol"); //获取的元素对象以伪元素数组形式储存
+		console.log(lis);
+
+		// 伪数组元素不能作为父元素,需要具体下标
+		var arr = document.getElementsByTagName("ul");
+		console.log(arr[0].getElementsByTagName("li")); //不需要 document.
+		// 或者直接赋予父元素id名，使用id获取
+
+		// 通过类名获取元素
+		document.getElementsByClassName("box");
+		// 获取指定类型选择器的 第一个 元素对象 类名加 .  id名加 #   标签无须加符号
+		document.querySelector(".box");
+		document.querySelector("#nav");
+
+		// 获取指定类型选择器的 所有 元素对象 类名加 .  id名加 #   标签无须加符号
+		document.querySelectorAll(".box");
+
+		// 获取body
+		var bodyele = document.body;
+		// 获取html
+		var htmlele = document.documentElement;
+	</script>
+
+	<!-- 一个事件的组成： 事件源 事件类型 事件处理程序 -->
+	<button id="btn">事件源</button>
+	<script>
+		var btn = document.getElementById("btn"); //(1)获取事件源
+		// (2)事件类型是: 点击  (3)处理程序: 通过匿名函数赋值
+		btn.onclick = function () {
+			alert("处理成功");
+		};
+	</script>
+	<!-- 改变元素内容 -->
+	<button>显示时间</button>
+	<div>当前时间</div>
+	<p>支持html标签</p>
+	<script>
+		var b = document.querySelectorAll("button");
+		var div = document.querySelectorAll("div");
+		b[1].onclick = function () {
+			div[1].innerText = gettime(); //innerText改变文本
+		};
+		function gettime() {
+			var date = new Date();
+			return date;
+		}
+	</script>
+	<!-- 获取元素之后可以不添加事件，直接操作元素 (打开页面就能显示) -->
+	<!-- innerText不识别html标签 此时需要innerHTML-->
+	<script>
+		var p = document.querySelector("p");
+		p.innerHTML = "<strong>支持HTML标签";
+		console.log(p.innerHTML);
+	</script>
+
+	<!-- 修改元素样式 -->
+	<div class="bb">kkk</div>
+	<script>
+		// (1) this.style
+		var yangli = document.querySelector(".bb");
+		yangli.onclick = function () {
+			var flag = 1;
+			this.style.backgroundColor = "#ccc";
+			this.style.width = "250px";
+			if (flag == 1) {
+				flag = 0;
+				// this.style.display='none';
+			} else {
+				flag = 1;
+				this.style.display = "block";
+			}
+		};
+		// 事件类型： 获得焦点 失去焦点
+		taxt.onfocus = function () { };
+		text.onblur = function () { };
+
+		//  (2)  添加css类
+		yangli.onclick = function () {
+			this.className = "change"; //change在css中定义后，从此处引入
+			//若原先已有类名，此处类名将会覆盖掉原来的类名
+			//如果需要保留原来的类名
+			tihs.className = "原先 change"; //多类名选择器
+		};
+	</script>
+	<button>按钮1</button>
+	<button>按钮2</button>
+	<button>按钮3</button>
+	<button>按钮4</button>
+	<button>按钮5</button>
+	<script>
+		var btns = document.querySelectorAll("button");
+		for (var i = 0; i < btns.length; i++) {
+			btns[i].onmousemove = function () {
+				for (var j = 0; j < btns.length; j++) {
+					// 把所有背景色改为空
+					btns[j].style.backgroundColor = "";
+				}
+				this.style.backgroundColor = "pink";
+			};
+		}
+	</script>
+	<div class="baidu">
+		<img src="img/images/floor-1-6.png" alt="" />
+	</div>
+	<script>
+		var img = document.querySelector(".baidu img"); //选择父元素的子元素时可按该书写格式写
+		// 隐隐加加 防止路径变量被识别成字符串
+		document.body.style.backgroundImage = "url(" + this.src + ")"; //获取图片路径
+	</script>
+	<script>
+		// 获取自带属性：(1) div.id
+		// 获取自定义属性只能用该方法: (2)
+		var div = document.querySelector("div");
+		div[1].getAttribute("id");
+
+		// 修改自带属性(1)  div.className='666';（class特殊）
+		//修改自定义属性(2)
+		div[1].getAttribute("class", 666);
+		// 移除属性
+		div[1].removeAttribute("index");
+	</script>
+
+	<!-- 切换tab栏: (1)for循环清除已选中类：li.className='' (2) 隐藏其他 item[i] display:none  (3)显示自己 item[i] display:block 
+    //注意要事先隐藏所有元素，在设置一个优先显示元素，否则页面一开始显示的是全部元素    ; 
+    -->
+
+	<!-- 自定义属性 规定以 data- 开头的属性为自定义属性 -->
+	<!-- 新增获取自定义属性方法 -->
+	<span></span>
+	<script>
+		//注意一定要以data开头才能用dataset获取自定义元素
+		var span = document.querySelector("span");
+		span.setAttribute("data-ok", 666); //添加自定义属性
+		console.log(span.dataset.ok);
+	</script>
+
+	<!-- 节点操作 -->
+	<div class="pp">
+		<div class="oo"></div>
+	</div>
+	<script>
+		var oo = document.querySelector('.oo');
+		// 直接获取父节点：(得到的是离元素最近的父元素)
+		var pp = oo.parentNode;
+      // 子节点包括文本节点，换行也算
+      .childNodes
+		ul.children //获取所有子 元素节点
+
+		// 获取第一、最后一个子元素节点
+		ul.firstElementChlid
+		ul.lastElementChlid
+		// 实际开发写法
+		ul.children[0];//绝对子元素（不包括孙子）
+		ul.children[ul.children.length - 1];
+
+		// 获取下一个、上一个兄弟节点:包括文本节点
+		oo.nextSibling
+		oo.previousSibling
+		// 下一个、上一个兄弟元素节点
+		oo.nextElementSibling
+		oo.previousElementSibling
+
+		// 创建元素节点
+		var li = document.createElement('li');
+		// 将创建的li添加到父元素中
+		var ul = document.querySelector('ul');//获取父元素
+		ul.appendChild(li);//添加到后面 不加引号！！！
+		//  添加节点到指定位置 node.insertBefore
+		ul.insertBefore(li, ul.children[0]);//在第一个子元素前再插入一个li
+		// 删除元素 node.removeChild
+		ul.removeChild(ul.children[1]);
+
+		li.innerHTML = text.value + " <a href='javascript:;'>删除</a> "//阻止链接跳转
+
+		//拷贝节点
+		ul.children[0].cloneNode();//浅拷贝不拷贝内容只拷贝标签
+		ul.children[0].cloneNode(true);//深拷贝，拷贝内容
+
+		// 通过事件监听注册事件  (同一元素可重复添加，不会覆盖)addEventListener(type, listener)
+		ul.addEventListener('click', function () {
+			alert('666');
+		});
+
+		// 删除事件
+		ul.onclick = null;//(1)
+		ul.removeEventListener('click', fn)//(2)不能采取匿名函数删除
+		function fn() { }
+
+		// 事件对象
+		// 1. event、evt、e(随意命名) 就是一个事件对象 写到我们侦听函数的小括号里面当形参来看
+		// 2. 事件对象只有有了事件才会存在,它是系统给我们自动创建的,不需要我们传递参数
+		// 3. 事件对象是我们事件的一系列相关数据的集合跟事件相关的比如鼠标点击里面就包含了鼠标的相关信息,如果是键盘事件里面就包含的键盘事件的信息，例如判断用户按下了那个键
+		ul.onclick = function (e) {
+			console.log(e);
+		}
+		// e.target返回的是触发事件的对象（元素） this返回的是绑定事件的对象
+		//触发事件的对象可以是绑定对象的子元素（我们点击的对象）
+
+		// e.type
+		ul.addEventListener('click', fn, false);//false或省略表示执行冒泡传播，true是捕获阶段
+		function fn(e) {
+			console.log(e.type);//返回事件类型
+
+		}
+		// 组织默认行为：让链接不跳转、提交按钮不提交等
+		e.preventDdfault();
+		e.returnValue;
+		// 或者 return false 也能阻止默认行为 但后面的代码不能执行了
+
+		e.stopPropagation();//停止后续冒泡
+
+		// 事件委托 原理：给父亲添加监听器，利用事件，冒泡影响每一个子元素
+
+		// 禁止和禁止右键可以用
+		document.addEventListener('contextmenu', function (e) {
+			e.preventDefault();
+		})
+		//    禁用选中文字
+		document.addEventListener('selectstart', function (e) {
+			e.preventDefault();
+		})
+
+		//鼠标事件对象
+		// e.clientX  e.clientY 得到鼠标在 可视区 的坐标
+		// e.pageX    e.pageY   得到鼠标在页面的坐标
+
+		// 监听鼠标移动事件：mousemove 获取并配置鼠标实时位置给某元素的绝对位置
+
+		// 键盘事件
+		//keyup  keydown keypress  键盘弹起、按下、按下（不识别功能键），按下按钮会持续触发
+		// 键盘事件对象
+		e.keycode获取按下字母的ascll
+	</script>
+
+	<!-- BOM -->
+	<script>
+		// window对象  调用window对象时可以省略window
+
+		// window.onload
+		window.onload = function () {//在引入js时，js要写在里面
+			// 里面可以正常的嵌入事件
+			btn.addEventListener('click', function () { });
+		}//等待页面加载完才触发，但写多个只以最后一个为准
+		//可以把html内容放在它后面写
+
+		window.addEventListener('resize', function () {
+			alert('当窗口大小发生变化时触发 resize')
+			if (window.innerWidth <= 800) { 当窗口大小小于800 }
+		})
+
+
+		// 定时器
+		setTimeout(function () { 当时间到了就执行 }, 2000)//时间单位必须是ms
+		// 定时器加上标志符   //回调函数 callback
+		var t1 = setTimeout(callback, 2000);
+		var t2 = setTimeout(callback, 5000);
+		function callback() {
+			console.log('新年快乐！');
+		}
+
+		// 清除定时器
+		btn.addEventListener('click', function () {
+			clearTimeout(t1);//括号里加定时器的名字
+		})
+
+		// setInterval 定时器
+		setInterval(function () { }, 1000)//每隔1秒调用一次函数
+		// 定时器函数一般要先调用一次，因为刷新页面会有定时间隔
+
+		// 停止定时器
+		clearInterval(s1);
+		var timer = null;//先给定时器一个空对象，要产生时在定义函数赋值给他
+
+		// 禁用按钮  button.disabled=true;
+		// 在定时器里的this（全局作用域）指向的是window
+
+		// JavaScript可多线程运作
+		// 同步任务（执行栈）先执行  异步任务（任务队列）后放入执行栈，回调函数放这里
+
+		// location 对象
+		// location对象属性
+		// location.href 获取或者设置整个URL（赋值则是设置，输出则是获取，在事件中使用，对标签进行操作）
+		// location. host返回主机(域名)
+		// location.port 返回端口号
+		// location.pathname  路径
+		// location. search  返回参数
+		// location.hash  返回片段（#后面内容）
+		location.href //会直接跳转
+
+		// 获取url参数能使数据在不同页面中传输
+		location.search
+
+		// 第一个登录页面,里面有提交表单,action 提交到index.html页面
+		// 第二个页面,可以使用第一个页面的参数,这样实现了一个数据不同页面之间的传递效果
+		// 第二个页面之所以可以使用第一个页面的数据,是利用了URL里面的location.search参数
+		// 在第二个页面中,需要把这个参数提取 第一步去掉? 利用 substr
+		// 第二步利用=号分割键和值 split(' = ')
+
+		location.assign('http...')//跟 href 一样,可以跳转页面(也称为重定向页面,可回跳)
+		location.replace('http...')//替换当前页面,因为不记录历史,所以不能后退页面
+		location.reload() //重新加载页面,相当于刷新按钮或者 f5 如果参数为true 强制刷新 ctrl+f5
+
+		// navigator对象
+		navigator.userAgent//判断pc段与移动端
+
+		// history对象 实现前进、后退页面
+		history.forward();
+		history.back();
+		history.go(1);//前进x步，可以是负数
+
+		// offset 系列
+		var father = document.querySelector('.father');
+		var son = document.querySelector('.son');
+		// 1.可以得到元素的偏移 位置 返回的不带单位的数值
+		console.log(father.offsetTop);
+		console.log(father.offsetLeft);
+		// 它以带有定位的父亲为准  如果么有父亲或者父亲没有定位 则以 body 为准
+		console.log(son.offsetLeft);
+		var w = document.querySelector('.w');
+		// 2.可以得到元素的大小 宽度和高度 是包含padding + border + width
+		console.log(w.offsetWidth);
+		console.log(w.offsetHeight);
+		// 3. 返回带有定位的父亲 否则返回的是body
+		console.log(son.offsetParent); // 返回带有定位的父亲 否则返回的是body
+		console.log(son.parentNode); // 返回父亲 是最近一级的父亲 亲爸爸 不管父亲有没有定位
+
+		// div.clientWidth返回宽度，不包含边框，包含padding ，div.clientleft返回左边框
+
+		// 立即执行函数  作用：独立创建一个作用域 ，变量名不会冲突，方便引入不同js文件
+		// ：不需要调用，马上执行的函数
+		// 写法：  （多个立即执行函数要加分号隔开）
+		(function () { })();   /*或者*/ (function () { }());
+		//可以传递参数
+		(function (a, b) {
+			console.log(a + b);
+		})(1, 2) //第二个小括号看作是调用函数
+
+		//    pageshow重新加载页面兼容各个浏览器
+
+		// 元素滚动系列
+		scroll
+		// div.scrollWidth返回的是实际大小，超出盒子部分也算入（所有此时style里要加滚动条 overflow：auto）
+		//element.scrollTop     返回被卷去的上侧距离,返回数值不带单位
+		// element.scrollHeight  返回显示内容高度 不带单位
+		div.addEventListener('scroll', function () {
+			scroll(0, 100);//跳转到距离顶部100px，不带单位
+			console.log('当滚动条滚动时触发');
+		})
+
+		// window.pageYOffset 页面被卷去的头部
+
+		//1. offset系列经常用于获得元素位置
+		//2. client  经常用于获取元素大小
+		//3. scroll经常用于获取滚动距离 //scrollTop scrollLeft clientWidth clientHeight
+
+		// mouseover与mouseenter区别
+		// mouseover经过自身和子盒子都会触发（冒泡） 而mouseenter只有经过自身才会触发（不冒泡）
+		// mouseleave与mouseenter搭配使用
+
+		// 动画原理：利用定时器不断移动元素
+		// 动画函数的封装
+
+		// 简单动画函数封装
+		// obj目标对象 target 目标位置
+		function animate(obj, target, callback) {
+			/*给不同对象指定不同的定时器*/
+			obj.tmier = setInterval(function () {
+				if (obj.offsetLeft >= target) {
+					// 停止动画 本质是停止定时器
+					clearInterval(obj.timer);
+					if (callback) { callback(); }//回调函数在定时器结束后调用
+				}
+				obj.style.left = obj.offsetLeft + 1 + 'px';
+
+			}, 30);
+		}
+		// 调用函数
+		animate(div, 300);
+		animate(span, 200);
+		// 缓动动画
+		// 这个步长值改为一个慢慢变小的值步长公式:(目标值 - 现在的位置) / 10
+		//避免出现小数，使用if(step>0)Math.ceil()向上取整 else Math.floor()向下取整
+
+		// 缓动动画传入回调函数
+		function animate(obj, target, callback);
+		// 实参  animate(span ,200 ,fn);
+
+		// 封装动画函数js文件
+		// /引入js文件   <script src="animate.js"> <script>
+
+		// 节流阀：防止点击过快显示不全
+		var flag = true;
+		//点击：
+		if (true) flag = !flag;
+		callback(){ flag = true };
+
+		// 本地储存
+		// 数据存储在页面，不关闭页面，只刷新无法删除
+		sessionStorage.setItem('uname', value);//储存；起名，想要存的值
+		// 删除存储
+		sessionStorage.removeItem('uname');
+		sessionStorage.clear();//删除所有数据
+		// 获取数据
+		sessionStorage.getItem('uname');
+		// 修改数据  重新保存即可
+
+		// 永久保存 ，可多页面共享数据（ localStorage.getItem('uname');）
+		localStorage.setItem //使用方法同上
+	</script>
+
+	<script>
+      // jQuery 用于操作dom的JavaScript库
+      //   引入 <script src="jquery.js"><script>
+	</script>
+</body>
+
+</html>

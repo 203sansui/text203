@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // //  输入框
+        // //  prompt('请输入您的年龄');
+        // //  输出框
+        // //  alert('结果是');
+        // //  控制台，调试用
+        // console.log('只有程序员能看见');
+        // // 初始化变量
+        // var age=19;
+        // // age=prompt('请输入您的年龄');
+        // // 输出结果
+        // console.log(age);
+        // // alert(age);
+        // // 八进制前面添0  012 = 10
+        // //十六进制前添0x  0xa = 10
+        // // 输出最大，最小值
+        // console.log(Number.MAX_VALUE);
+        // console.log(Number.MIN_VALUE);
+        // // isNaN()用于判断是否为非数字，若非数字，返回true 否则返回false
+        // var str='100';
+        // console.log(str.length);
+        // // 字符串用 + 可以直接拼接，可以拼接所有类型(强制转化非字符串类型)
+        // var flag=true;
+        // // typeof 用于检测数据类型
+        // console.log(typeof flag);
+        // console.log(typeof str);
+        // // 类型转换
+        // var num=666;
+        // // 转换成字符串类型
+        // var str=num.toString;
+        // // 或者
+        // str =String(num); //加号也行
+        // // 转化成数字型4种方法
+        // num=parseInt(str);//会自动去除尾部非数字部分
+        // var str=Number(num);
+        // '12'-'0'// 算术转换
+        var str='133';
+        console.log(Number(str));
+        console.log(typeof str);
+
+        console.log(18=='18')//结果为true == 会将数据转换为相同类型
+        console.log(18==='18');//结果为false ===全等不会转换数据类型
+        //创建数组
+        // 方法1
+        var arr=new Array();
+        // 方法2
+        // 注意，数组里的元素类型可以不相同
+        var arr=[];
+        //追加数组元素
+        arr.length=5;//把数组长度修改成5，空内容类型为undefined
+        // 若直接给数组赋值会覆盖掉所有数据
+        // 调用函数：函数名（）；
+        function getsum(arr){
+            var sum=0;
+            for(var i=1;i<=n;i++){
+                sum+=i;
+            }
+            console.log(sum);
+            return sum;
+        }
+        getsum('ok666');
+        // 形参不需要声明，自动识别实参类型
+        //若形参个数多于实参个数，会取到形参的个数
+        //若形参个数小于实参个数，多余形参看作是未定义类型（结果为NaN）
+        //  arguments 存储了所有的实参，以伪数组形式展示
+        // 具有length属性 按照索引方式查找 无pop push功能
+        function fn(){
+            console.log(arguments);
+        }
+        fn(1,2,3);
+        // 函数声明的方式
+        var fun =function(){
+            // 函数体
+        }
+        // 注意：fun是变量名不是函数名，声明的函数是匿名函数
+        // 调用：fun();
+
+        // 在函数内部没有声明直接赋值的变量，属于全局变量
+        
+        // js预解析
+        // js会把 js里所有的 var 、function 提升到 当前作用域 最前面
+        // 故变量声明和函数声明(不包括函数表达式声明)会在赋值之前执行（此时输出会显示undeifned）
+       
+        // 创建对象第一种方法
+        var obj={
+            // 注意多个属性和方法之间用逗号隔开
+            uneam:'dag',
+            age:'18',
+            sayhow:function(){//方法创建
+                console.log('hi!');
+            }
+        }
+        // 调用属性的两种办法
+        obj.age;
+        obj['age'];
+        //调用方法
+        obj.sayhow();
+        
+        // 创建对象第二种方法
+         var obj=new Object();
+        obj.uneam='ok';//  追加属性和方法
+        obj.age=6;
+        obj.sayhi=function(){
+            console.log('hi!');
+        }
+
+        // 构造函数的语法格式
+        function 构造函数名(){
+            this.属性=值;
+            this.方法=function(){}
+        }
+        // 调用构造函数
+        new 构造函数名();
+        
+        function Fn(x){//名字首字母必须大写
+            this.egg=x;
+            this.fn=function(){};
+        }
+        new Fn(6);
+        
+        // 通过构造函数创建对象
+        var yes=new Fn(88); 
+
+        //遍历对象for...in
+        for(变量 in 对象){}
+
+        for(var k in obj){
+            console.log(k);//得到的是变量名
+            console.log(obj[k]);//得到的是属性值
+        }
+        
+        // 基本包装类型 :把简单数具据类型包装成复杂数据类型以此获得更多属性和方法使用
+        // 1 创建临时变量
+        var str ='any';
+        var temp=new String('any');
+        // 2 把临时变量赋值给目标数据
+        str=temp;
+        // 3 销毁临时变量
+        temp=null;
+        str.indexOf('要查找的字符',[指定查找位置]);
+
+        // 字符串操作方法
+        // 截取操作
+        concat(str1,str2,str3,...) // concat() 方法用于连接两个或多个字符串。拼接字符串,等效于+,+更常用
+        substr(start,length)    // 从start位置开始(索引号), length 取的个数 重点记住这个
+        slice(start, end)       // 从start位置开始,截取到end位置,end取不到(他们俩都是索引号)
+        substring(start, end)   //从start位置开始,截取到end位置,end取不到 ，基本和slice 相同但是不接受负值
+        // 替换操作
+        str.replace('a','b');   //将字符串里的第一个‘a’替换为‘b’
+        // 字符串转换为数组
+        var str2='red,pink,blue';
+        console.log(str2.split(',')); //以','作为分界隔开字符串
+
+        复杂类型传参是直接传地址
+</script>
+</head>
+<body>
+    
+</body>
+</html>

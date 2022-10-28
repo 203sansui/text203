@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header{
+            height: 100px;
+            width: 200px;
+            background-color: pink;
+        } 
+        video{
+            width: 200px;
+        }  
+        audio{
+            height: 200px;
+            width: 222px;
+            /* background-color: pink; */
+        }
+
+        /* 属性选择器 权重是10 */
+        /* 1 选择具有[x]属性的y元素 */
+        input[value] {
+            color: pink;
+        }
+        /* 2 根据属性=值选择元素 */
+        input[type=taxt]{
+            color: lightpink;
+        }
+        /* 选择div标签里具有以icon属性开头的标签 */
+        div[class=^icon]{ 
+        } 
+        /* 选择section标签里具有以data属性结尾的标签 */
+        section[class=$data]{
+        }
+        /* 选择class属性且值中含有ok的元素 */
+        div[class*=ok]{
+        }
+
+        /* 结构伪类选择器 */
+        /* 选择ul li 的第一个或最后一个（last）孩子 */
+        ul li :first-child{
+        }
+        /* 选择第n个孩子 (n可以是数字，关键字，公式)*/
+        /* 关键字：odd奇数行; even偶数行;  公式：n表示选择所有孩子;  n+5 表示从第5个开始选; 5n 表示5的倍数被选中; -n+5 选择前5个;
+        4*/
+        /* 将所有孩子排序，会先看nth-child 再回头看li 匹配不上则失效 */
+        ul li :nth-child(n){
+        }
+        /* 将li进行排序选择第x个 */
+        ul li :nth-of-type(x){
+        }
+
+        /* 伪元素选择器 通过css创建，不在html里面*/
+        /* ::before 在父盒子内的前面插入 ::after在父盒子内的后面插入  （::前面是父盒子的类型） 属于行内元素  */
+        /* 权重为1 */  
+        ::before{
+            display: block;
+            width: 20px;height: 20px;
+            /* content不能省略否则不起效果 */
+            content: '';
+            /* background-color: blue; */
+        }
+
+        /*  box-sizing: border-box 使盒子大小固定在设置的width和height不变，前提padding和border大小不超过width宽度 */
+        div{
+            width: 200px;
+            height: 200px;
+            box-sizing: border-box;
+        }
+        
+        /* 滤镜filter模糊处理 */
+        img {
+            /* 数值越大模糊越明显 */
+            filter: blur(5px);
+        }
+
+        /* calc函数计算 */
+        div{
+            /* 比父亲小30像素 */
+            width: calc(100%-30px);
+        }
+        
+        /* 属性过渡 */
+        div{
+            width: 200px;height: 200px;
+            background-color: pink;
+            /* 变化属性   花费时间 ,变化属性  花费时间*/
+            /* transition: width  0.5s , height 0.5s ; */
+            transition: all 0.5s;
+            /* 若需要所有属性 那么属性写 all 即可 */
+        }
+        div:hover{
+            /* width: 400px ;
+            height: 300px; */
+        }
+
+        .bar{
+            width: 150px;
+            height: 15px;
+            border: 1px solid red;
+        }
+        .bar in {
+            width: 50%;
+            height: 100%;
+            background-color: red;
+        }
+        .bbar :hover in{
+            transition: all 0.5s;
+        }
+        
+        /* c3的2d转换 */
+        div{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* 移动盒子位置，坐标轴第四象限 (x,y) */
+            /* transform: translate(100px,-100px); */
+            /* translate不会影响其他盒子的位置 */
+            /* 旋转盒子 */
+            transform: rotate(45deg);/*顺时针旋转45度*/
+            /* 旋转中心点 */
+            transform-origin: 50% 50%;/*默认值*/
+        }
+
+        /* 使盒子居于父盒子正中央 */
+        span{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: block;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(19, 148, 180, 0.533);
+            transform: translate(-50%,-50%);
+        }
+
+        span:hover{
+            transition: all 1s;
+            transform: translate(50px,-50px) rotate(180deg);
+            /* 多个转换时位移需要再最前面，并且不能分开写 */
+        }
+        /* 缩放scale 缩放后不会影响其他盒子，且能修改缩放中心点*/
+        .suo{
+            height: 200px;
+            width: 200px;
+            transform: scale(2,1);/*不跟单位 表示高宽的倍数*/
+            transform-origin: 0 50%;
+            transform-origin: left bottom;
+        }
+        /* 动画序列 */
+        @keyframes move{
+            /* 开始状态 */
+            0%{
+                transform:translate(0);
+            }
+            /* 结束状态 */
+            100%{
+                transform: translate(1000px,-1000px);
+            }
+            /* 等同于from to */
+            /* 填写的是所处的位置坐标 */
+            0%{
+                transform: translate(0);
+            }
+            25%{/*百分比代表时间点到达位置*/
+                transform: translate(599px,0);
+            }
+            50%{
+                transform: translate(599px,599px);
+            }
+            75%{
+                transform: translate(0,599px);
+            }
+            100%{
+                transform: translate(0,0);
+            }
+        }
+
+        .donghua{
+            position: absolute;
+            top:100px;
+            left: 500px;
+            width: 200px;
+            height: 200px;
+            /* 引用动画 */
+            animation-name: move;
+            /*持续时间*/
+            animation-duration: 2s;
+            /*运动速度曲线*/
+            animation-timing-function: ease;
+            /* 开始时间 */
+            animation-delay: 1s;
+            /*无限次数播放*/
+            animation-iteration-count: infinite;
+            /* 是否反方向播放 */
+            animation-direction: normal;/*正常*/
+            animation-direction: alternate;/*反向*/
+            /* 动画结束后保持结束状态 */
+            animation-fill-mode: backwards;/*默认不返回*/
+            animation-fill-mode:forwards /*回去*/;
+            /* 鼠标经过div让他停止运动 */
+            animation-play-state:paused;
+
+            /* 动画简写  animation: : 动画名称 持续时间 运动曲线 何时开始 播放次数 是否反方向 动画起始或者结束的状态
+            持续时间 一定要在 何时开始 前面
+            */
+            /* 需要叠加动画时，加一个逗号可以继续添加animation-name */
+            animation: move 2s linear /*匀速*/  0s 1 alternate forwards ; 
+        }
+        /* 注意infinite与forwards一起用不会停在终点 */
+
+        /* 3d移动 */
+
+        /* z轴正方向是指向屏幕外的方向 */
+        /* 写法： ransform: translate3d(0,0,0);  多加一个3d后缀*/
+        
+        /* 3d透视 */
+        div{
+            /* 透视要写在被透视盒子的父亲里，表示视距，针对所有盒子 */
+            perspective: 100px;
+            transform:translateZ(100px);
+        /* 3d旋转 */
+            /* 沿着x轴旋转 ：旋转方向用左手准则（拇指指向正方向）*/
+            transform: rotateX(180deg);
+            transform: rotate3d(x,y,z,deg);
+        /* 3d呈现 */
+            transform-style: preserve-3d;
+            transform-style: flat;/*默认不呈现3d*/
+        }
+    </style>
+    <script>
+        alert(666);
+    </script>
+</head>
+<body>
+    <header> 头部标签</header>
+    <nav>导航栏</nav>
+    <article>内容标签</article>
+    <section>侧边栏标签</section>
+    <footer>尾部标签</footer>
+    <!-- muted静音播放  controls播放暂停按钮 autoplay自动播放
+    poster 加载等待图片 
+    --> 
+    <video src="video/你被骗了.mp4" autoplay="autoplay" muted="muted" controls ="controls"  ></video>
+    <audio src="audio/一路向北(电影 《头文字Ｄ》插曲)-周杰伦.flac" autoplay="autoplay" controls="controls"  ></audio>
+
+    <!-- 新增input类型 需要先写表单域-->
+    <!-- 只允许输入标签内类型 -->
+    <form action="">
+        <!-- placeholder 表单底默认文字  required必须填写才能提交  autofocus自动聚焦属性  autocomplete记住输入内容默认已打开-->
+        <input type="email" value="邮箱" required="required" placeholder="邮箱" autofocus="autofocus" autocomplete="off"  >
+        <input type="tel" value="电话">
+        <input type="number" value="数字">
+        <input type="search" value="搜索框">
+        <input type="date" value="日期">
+        <input type="time" value="时间">
+        <input type="color" value="颜色">
+        <input type="text" value="文本框">
+    </form>
+    <div><span></span></div>
+    <!-- <div class="suo">
+        
+    </div> -->
+    <div class="donghua"></div>
+</body>
+</html>

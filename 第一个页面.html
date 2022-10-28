@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--声明html版本-->
+<html lang="zh-CN">
+<!--语言网站-->
+
+<head>
+	<meta charset="UTF-8">
+	<!--注释-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>我是天才</title>
+	<style>
+		.gray {
+			color: gray;
+		}
+	</style>
+</head>
+
+
+
+
+<!--  <h1>-<h6>标题标签  -->
+<a href="#down">直达底部</a>
+
+<body>
+	<h1>一级标题</h1>123
+	<!-- 标题独占一行，字体依次减小 -->
+	嘎嘎写代码
+
+	<p>p段落标签</p>用于分段 <br />或者强制换行
+	<br /><strong>我觉得我好英俊</strong>
+	<b>b我觉得我好英俊</b>
+	<i>i倾斜</i> <em>倾斜</em>
+	<del>del删除</del> <s>删除</s>
+	<ins>ins下划线</ins>
+
+	<p></p>
+	<div>
+		div是盒子标签，用于存放东西,div独占一行
+	</div>
+	<span>span也是一个盒子，一行能放多个</span>
+
+	<p></p>
+	图像标签<br>
+	<img src="img/iron.jpg" width="200" height="400" border="5" />
+	<!--src是图片的属性  =后是文件名-->
+	<p></p>
+	<img src="img/erzi.jpg" title="这是我儿子" />
+	<img src="img/新.png" alt="alt在图片显示失败时的替换文本" />
+
+	<p></p>
+	<h4>超链接页面跳转:</h4>
+	<a href="https://www.bilibili.com/video/BV1gV411i7vq?spm_id_from=333.337.search-card.all.click"
+		target="_blank">愿者上钩</a>
+	<br />_blank新窗口打开 _self 是默认的，当前窗口打开
+	<br>target 打开方式 href 网址
+
+	<p></p>
+	<b>内部链接</b>
+	<a href="案例.html" target="_blank">简介</a>
+	<b>下载链接</b>
+	地址链接的是 .exe 或者 zip 等压缩包形式
+	<a href="img/6.zip">下载图片</a>
+	当然图片或视频等也可以当作链接名
+	<a href="https://www.bilibili.com/video/BV1gV411i7vq?spm_id_from=333.337.search-card.all.click" target="_blank"><img
+			src="img/erzi.jpg" title="这是我儿子" /></a>
+
+	<p></p>
+	锚点链接 用于定位到同一页面的某位置
+	入口"井号开头+名字"， 出口在标签上加 id="名字"
+	<a href="#maodian">入口</a>/
+	<h3 id="maodian">出口</h3>
+
+	好 家 伙
+	空格: &nbsp;
+	小于号：&lt; 大于号: &gt;
+
+	<p></p>
+	表格： <br />
+	<!--tr一行-->
+	<!--td单元格-->
+	<!--th单元格加粗居中-->
+	<!--表格属性：
+	align="center,left,right" 居中左右
+   	cellpadding +数值 规定单元格与内容空白的位置
+	cellspacing +数值 单元格与单元格之间的空白
+	-->
+	<table align="left" border="1" cellpadding="10" cellspacing="0">
+
+		<thead>
+			<!--表头-->
+			<tr>
+				<th>姓名</th>
+				<th>年龄</th>
+				<!-- <th>性别</th> -->
+			</tr>
+		</thead>
+
+		<tbody>
+			<!--表体-->
+			<tr>
+				<td>三岁</td>
+				<td>3</td>
+				<td>男</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+	<p></p>
+	<h4>列表标签</h4>
+	无序列表
+	<ul>
+		<li> <a href="#">麻辣烫</a> </li>
+		<li>蛋挞</li>
+		<li>奶茶</li>
+		<!-- 去掉列表前的圆点在css中用 list-style: none -->
+	</ul>
+	<p>有序列表</p>
+	<ol>
+		<li>粉的排行</li>
+		<li>炒粉</li>
+		<li>螺蛳粉</li>
+		<li>老友粉</li>
+	</ol>
+	<p></p>自定义列表>
+	<dl>
+		<!-- dl内不允许再出现其他标签-->
+		<dt>心情</dt>
+		<!--主-->
+		<dd>平淡</dd>
+		<!--副-->
+		<dd>欢喜</dd>
+		<dd>焦虑</dd>
+		<dd>满足</dd>
+	</dl>
+
+	<p></p>表单
+	表单域
+	<form action="deom.php" method="POSt" name="name1">
+		用户名：<input type="text" placeholder="请输入用户名" class="gray">
+		<!--文本框可输入内容--><br />
+		密码：<input type="password" id="password" placeholder="请输入密码">
+		<!--密码框-->
+
+		性别：
+		<label>男<input type="radio" name="sex" value="男" id="sex"></label>
+		女<input type="radio" name="sex" value="女">
+		<p></p>
+		爱好：乒乓<input type="checkbox" neam="hobby" value="爱好"> 游戏<input type="checkbox" name="hobby" value="爱好">编程<input
+			type="checkbox" name="hobby" value=爱好>
+		<br>
+		<input type="submit" value="注册">
+		<input type="reset" value="重置">
+		<input type="button" value="获取验证码">
+		<label>上传图片：<input type="file"></label>
+	</form>
+	<!--name用于区别表单元素，同一表单列name必须一致
+	value用于向后台提供信息，某些时候也可以在前端显示
+	checked用于表示默任选项
+	radio 单选
+	chaeckbox 多选
+	maxlength 限制输入的最大字符数
+	submit 提交信息 reset 清空表单
+	button搭配js使用
+	file 文件域，用于上传文件
+	label 绑定一个表单元素，当点击label标签内文本时，可转换为点击了表单元素
+    placeholder设置表单文本框的默认元素	
+    -->
+	下拉表单元素<br>
+	IP属地:
+	<select>
+		<option>广西</option>
+		<option>河北</option>
+		<option>江苏</option>
+		<option>浙江</option>
+	</select>
+
+	<!-- 文本域 -->
+	<p></p>ps:
+	<textarea cols="50" rows="1">本网站由三岁制作，最终解释权归制作人所有，抄袭必究。</textarea>
+</body>
+<h3 id="down">以上</h3>
+
+</html>

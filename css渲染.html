@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渲染</title>
+    css:
+    <!-- 内部样式表 -->
+    <!-- <style>
+	/* 标签选择器:用于选择标签并渲染*/
+		p {
+			color: red ;
+			font-size: 16px ;
+		}
+		div {
+			color: rgb(20, 203, 51) ;
+		}
+
+	/* 类选择器：可单独选择一个或某几个标签 */
+	/* . +  类名 */	
+        .red {       
+			color: rgb(12, 12, 12) ;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(226, 64, 36);
+		}
+        .font25{
+            font-size:25px ;
+        } 
+
+        /* id选择器 样式通过 # 使用，只能由某个标签调用一次*/
+        #pink{
+            color: pink;
+        }
+        
+        /* 通配符选择器 能直接应用到 除id选择器和标题 外的所有标签上*/
+         *{
+            color: rgb(118, 36, 158);
+         }
+         
+         /* 字体 */
+         h3{
+            font-family: '宋体';
+         }
+        
+         /* 文字加粗 */
+         .bold{
+            /* font-weight: bold; 或者*/
+            font-weight: 700;
+            /* 400是正常的字粗 100-900*/
+         }
+        
+         /* 斜体 */
+         p{
+            font-style: italic;
+            /* font-style: normal; 更正斜体 */
+         }
+
+         /* 对齐文本 */
+         h2{
+            text-align: center;
+         }
+         /* 文本装饰 */
+         div {
+            /* 下划线 上划线，删除线*/
+            text-decoration: underline;
+            text-decoration: overline;
+            text-decoration: line-through;
+         }
+         a {
+            /* 删除下划线 （常用于删除网址下划线）*/
+            text-decoration: none;
+         }
+         /* 文本缩进 (常用于段落首行缩进)*/
+         p {
+            text-indent: 20px;
+            text-indent: 2em ;/*em表示当前文字大小单位*/
+         }
+         /* 行间距 */
+         p{
+            line-height: 26px;/*减去文本像素再除2（上下间距）*/
+         } 
+	</style> -->
+
+
+    <!-- 外部样式表的引入 -->
+    <link rel="stylesheet" href="C:\Users\32052\Desktop\html\第一个渲染.css">
+
+
+</head>
+
+<body>
+    <!-- 行内样式表 用于单独改一个标签的样式-->
+    <p style="color:pink">我言秋日胜春朝</p>
+
+    <p> 渲染 </p>
+    渲染
+    <!-- 多个类在双引号中用空格格开使用 -->
+    <div class="red font25">
+        <h4>渲染</h4>
+    </div>
+    <ul>
+        <li id="pink">渲染</li>
+    </ul>
+    <h3 class="bold">密西密西画布垃圾，如果你不能米西我就不能拉吉。</h3>
+
+    <font size="6">
+        <h2>密西密西画布垃圾，如你不能米西我就不能拉吉</h2>
+    </font>
+
+    <!--     Emment语法      -->
+
+    <!-- div*3 + tab  自动生成
+    ul > span +tab 父子级关系直接生成
+    div + p   兄弟关系直接生成
+    .mingzi  默认生成div 类，也可以自定义如：p.mingzi生成段落标签类
+    #ming    默认生成div 的id，也可以自定义如：p#ming
+    div.ok$*3  表示按序生成3个div的ok 1 2 3类
+    p{文字}  可以直接定义文字在标签内
+-->
+    <div></div>
+    <div></div>
+    <div></div>
+    <ul><span></span></ul>
+    <div></div>
+    <p></p>
+    <div class="mingzi"></div>
+    <div id="minig"></div>
+    <p id="ming"></p>
+    <div class="ok1">ok1</div>
+    <div class="ok2">ok2</div>
+    <div class="ok3">ok3</div>
+    <p>不破楼兰终不还</p>
+    <p>不破楼兰终不还</p>
+    <p>不破楼兰终不还</p>
+
+    <!-- 代码格式化对齐文本 Shift+Ctrl+f :已修改为ctrl+s -->
+
+    <!-- 复合选择器 -->
+    <!-- 后代选择器 -->
+    <ol>
+        <li>后代选择器</li>
+        <li></li>
+        <li></li>
+    </ol>
+    <ol class="nav">
+        <li>
+            <a href="#">重名的标签</a>
+        </li>
+        <li></li>
+        <li></li>
+    </ol>
+    <input type="text" style="width:500px; height: 20px;"><br>
+    <input type="text">
+</body>
+
+</html>
