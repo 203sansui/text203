@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"> </script> -->
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script src="template-web.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="./lib/axios.js"></script>
+</head>
+
+<body style="padding: 15px;">
+
+    <button id="btn">发起不带参数的get请求</button>
+    <button id="btn1">发起post请求</button>
+    <script>
+        $(function () {
+            //get获取
+            $('#btn').on('click', function () {
+                $.get('http://www.liulongbin.top:3006/api/getbooks', { id: 1 }, function (res) {// 地址    数据  回调函数
+                    console.log(res);
+                })
+            })
+            //post添加
+            $('#btn1').on('click', function () {
+                $.post('http://www.liulongbin.top:3006/api/addbook', { bookname: '水浒传', author: '施耐庵', publisher: '天津图书出版社' }, function (res) {// 地址    数据  回调函数
+                    console.log(res);
+                })
+            })
+            //ajax可以实现多个请求方式
+            $.ajax({//配置对象
+                type: '', // 请求的方式, GET POST 
+                url: '', // 请求的 URL 地址 
+                data: {
+                    id: 1,
+                    'bookname': 1,
+                },// 本次请求要携带的数据 
+                success: function (res) { } //请求成功之后的回调函数 
+            })
+
+            // 接口：url地址 （每个url都有各自的请求方式）
+            //接口测试工具的使用：
+            //1. 选择请求的方式 
+            //2. 填写请求的URL地址 
+            //3. 填写请求的参数 
+            //4. 点击 Send 按钮发起 GET 请求 
+            //5. 查看服务器响应的结果
+
+            // 接口文档
+        })
+
+    </script>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加新图书</h3>
+        </div>
+        <div class="panel-body form-inline">
+
+            <div class="input-group">
+                <div class="input-group-addon">书名</div>
+                <input type="text" class="form-control" id="iptBookname" placeholder="请输入书名">
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-addon">作者</div>
+                <input type="text" class="form-control" id="iptAuthor" placeholder="请输入作者名">
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-addon">出版社</div>
+                <input type="text" class="form-control" id="iptPublisher" placeholder="请输入出版社">
+            </div>
+
+            <button id="btn2" class="btn btn-primary">添加</button>
+        </div>
+    </div>
+    <!-- 图书的表格 -->
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tb">
+
+        </tbody>
+    </table>
+
+    <script>
+        $(function () {
+            function getBooklist() {
+                $.get('http://www.liulongbin.top:3006/api/getbooks', function (res) {
+                    console.log(res);
+                    if (res.status !== 200) return alert('获取数据失败');
+                    else {
+                        var rows = [];
+                        $.each(res.data, function (i, item) {
+                            rows.push('<tr><td>' + item.id + '</td><td>' + item.bookname + '</td><td>' + item.author + '</td><td>' + item.publisher + '</td><td><a href="javascript:;" class="del" data-id="' + item.id + '">删除</a></td></tr>')
+                        })
+                        $('#tb').empty().append(rows.join(''));
+                        console.log(rows[0]);
+                    }
+                })
+            }
+            getBooklist();
+            // 
+            //             $('.del').on('click', function () {//不能动态绑定后期生成的元素，动态生成需要事件委托
+            // 
+            //             })
+            $('tbody').on('click', '.del', function () {
+                var id = $(this).attr('data-id')
+                $.get('http://www.liulongbin.top:3006/api/delbook', { id: id }, function (res) {
+                    if (res.status !== 200) return alert('删除图书失败！')
+                    getBookList()
+                })
+            })
+            // debugger;
+
+            $('#btn2').on('click', function () {
+                var bookname = $('#iptBookname').val().trim()
+                var author = $('#iptAuthor').val().trim()
+                var publisher = $('#iptPublisher').val().trim()
+                if (bookname.length <= 0 || author.length <= 0 || publisher.length <= 0) {
+                    return alert('请填写完整的图书信息！')
+                }
+                $.post("http://www.liulongbin.top:3006/api/addbook", { bookname: bookname, author: author, publisher: publisher }, function (res) {
+                    if (res.status !== 201) return alert('添加图书失败');
+                    getBooklist();
+                    // 添加完之后将文本框置空
+                    var bookname = $('#iptBookname').val('');
+                    var author = $('#iptAuthor').val('');
+                    var publisher = $('#iptPublisher').val('');
+                })
+            })
+        })
+
+    </script>
+    <form id="f1" action="" target="_blank" method="post" enctype="multipart/form-data">
+        <input type="text" name="user_name" />
+        <input type="password" name="password" />
+        <button type="submit">提交</button>
+    </form>
+    <!-- post 提交方式不会显示数据信息，get会显示数据 -->
+    <!-- 当涉及到文件上传使，必须将 enctype 的值设置为 multipart/form-data -->
+
+    <!-- 表单的同步提交的缺点： -->
+    <!-- 提交后页面之前的数据和状态会丢失，且页面发生跳转  
+    解决方法：通过ajax提交，表单只负责采集数据
+    -->
+    <script>
+        $(function () {
+            // $('#f1').submit(function (e) {
+            //     alert('已监听到表单提交事件');
+            // })
+            // 或者
+            $("#f1").on('submit', function (e) {
+                // alert('已监听到表单提交事件');
+                alert(e);
+                // 阻止表单页面跳转
+                e.preventDefault();
+
+                // 快速获取表单中的数据：serialize
+                // 使用前要给元素添加name属性+属性名，才能获取数据，形式以字符串加&连接
+                var str = $(this).serialize();
+                alert(str);
+
+                // class:form-control美化文本框
+                // btn btn-primary 美化按钮
+            })
+        })
+
+        // 模板引擎 
+        // art-template的使用步骤
+        // （1）导入art-template
+        // （2）定义数据
+        // （3）定义模板:  指定模板 type = text/html   id=''
+        // （4）调用template() 函数 ("#id",data) 放id和数据
+        // （5）渲染HTML结构
+    </script>
+    <div id="container"></div>
+
+    <script type="text/html" id="typ">
+        <!-- 注意以下内容只能在控制台看见!!!   -->
+    <h1>{{name}} --- {{age}}---{{@text}}</h1>
+    </script>
+
+    <script>
+        var data = { name: '张三', age: 18, test: '<h3>测试原文输出</h3>', flag: 1, hobby: ['吃饭', '睡觉', '写代码'], regTime: new Date() };
+        var htmlstr = template('typ', data);//用变量接收返回的字符串
+        $("#container").html(htmlstr);//使用接收的变量渲染html结构
+    </script>
+
+    <!-- 原文输出：
+        {{@ name}}即可
+    如果要输出的 value 值中,包含了 HTML 标签结构,则需要使用原文输出语法,才能保证 HTML标签被正常渲染-->
+
+    <!-- 条件输出：
+        {{if value}} 
+            按需输出的内容 
+        {{/if}} 
+
+        {{if v1}} 
+            按需输出的内容
+        {{else if v2}} 
+            按需输出的内容
+        {{/if}}
+         -->
+
+    <!-- 循环输出：
+        {{each hobby}}
+            <li>索引是:{{$index}}，循环项是:{{$value}}</li>  （索引和值的写法）
+        {{/each}}
+     -->
+
+    <!-- 过滤器 -->
+    <script>
+        $(function () {
+            // 定义格式化时间过滤器
+            // 模板变量 template.defaults.imports  在双花括号中调用过滤器:  | dataFomat
+            template.defaults.imports.dataFomat = function (dtStr) {//根据外界传输的时间对象得到数据
+                var y = dt.getFullYear();
+                var m = padZero(dt.getMonth() + 1);
+                var d = padZero(dt.getDate());
+
+                var hh = padZero(dt.getHours());
+                var mm = padZero(dt.getMinutes());
+                var ss = padZero(dt.getSeconds());
+                return y + '-' + m + '-' + d + 'hh' + ':' + mm + ':' + ss;
+            }
+        })
+
+        // 正则与字符串的操作
+        // （1）匹配
+        RegExpobject.exec(string);
+        var str = 'hello';
+        var pattern = /o/;//匹配o
+        // 如果字符串中有匹配的值,则返回该匹配值,否则返回 null
+        // 输出的结果 ["o", index : 4, input : "hello", groups : undefined]
+        console.log(pattern.exec(str));
+        // （2）分组
+        var str = "<div>我是{{name}}</div>"
+        var pattern = /{{(a-zA-Z+)}}/  //()表示提取内容 +标签提取多个  a-zA-Z表示提取所有字符
+        console.log(pattern.exec(str));
+        //结果是 ["{{name}}", "name", index : 7, input : "<div>{{name}} </div>", groups : undefined]
+    </script>
+
+    <script>
+        //ajax实现文件上传
+        $(function () {
+            // 监听到Ajax请求被发起了
+            $(document).ajaxStart(function () {
+                $('#loading').show()
+            })
+
+            // 监听到 Ajax 完成的事件
+            $(document).ajaxStop(function () {
+                $('#loading').hide()
+            })
+
+            $('#btnUpload').on('click', function () {
+                var files = $('#file1')[0].files
+                if (files.length <= 0) {
+                    return alert('请选择文件后再上传！')
+                }
+
+                var fd = new FormData()
+                fd.append('avatar', files[0])
+
+                // 发起 jQuery 的 Ajax 请求，上传文件
+                $.ajax({
+                    method: 'POST',
+                    url: 'http://www.liulongbin.top:3006/api/upload/avatar',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        console.log(res)
+                    }
+                })
+            })
+        })
+
+        // axios
+        // 先导入  <script src="./lib/axios.js"><script>
+        document.querySelector('#btn3').addEventListener('click', function () {
+            var url = 'http://www.liulongbin.top:3006/api/get'
+            var paramsData = { name: '钢铁侠', age: 35 }
+            axios({
+                method: 'post',
+                url: url,
+                params: paramsData,//携带参数（get请求）
+                data: dataObj  // 如果是post请求  
+            }).then(function (res) {//成功后回调函数
+                console.log(res.data)//得到数据
+            })
+        })
+
+        // 同源与跨域
+        // 如果两个页面的协议,域名和端口都相同,则两个页面具有相同的源.
+        // 例如,下表给出了相对于 http://www.test.com:7001/index.html 页面的同源检测
+        // 协议：https、 http 域名：www.text.com 、blog.text.com  端口：com后面加：数字 不写默认为80端口
+        // 不同源（跨域）的网站不能进行资源交互（操作dom、发起请求等）
+
+        // 解决跨域请求
+        // JSONP 、CORS
+        // JSONP 通过分离调用函数到js里解决跨域问题  JSONP实现跨域，
+        // 是利用src或href属性不受同源策略限制的特点，动态创建script标签，将远程接口赋值给src获取数据，并通过回调函数来接受和处理数据，达到跨域的目的。
+        $(function () {
+            // 发起JSONP的请求
+            $.ajax({
+                url: 'http://ajax.frontend.itheima.net:3006/api/jsonp?name=zs&age=20',
+                // 代表我们要发起JSONP的数据请求
+                dataType: 'jsonp',
+                jsonp: 'callback',//自定义参数名称
+                jsonpCallback: 'abc',//自定义回调函数名称
+                success: function (res) {
+                    console.log(res)
+                }
+            })
+        })
+
+        // 防抖：短时间多次请求只响应最后一次，以此节约服务器资源
+        // 2. 定义防抖的函数
+        function debounceSearch(kw) {
+            timer = setTimeout(function () {
+                getSuggestList(kw)
+            }, 500)
+        }
+        // 3.当键盘再次按下，clearTimeout(timer) 清空定时器，停止请求    
+        // 缓存之前请求过的数据
+
+        // 1.创建关键词
+        var keywords = $(this).val().trim()
+        if (keywords.length <= 0) {
+            return $('#suggest-list').empty().hide()
+        }
+
+        // 数组查找关键词，判断缓存中是否有数据
+        if (cacheObj[keywords]) {
+            return renderSuggestList(cacheObj[keywords])
+        }
+        // 有则返回缓存值，否则继续执行 请求函数debounceSearch(keywords)
+    
+        // 节流，短时间多次请求只响应第一次，防止事件无限制被触发
+
+
+        // HTTP协议
+        // 状态码： 以 x 开头
+        // 1** 信息  （需要请求者进继续执行操作）
+        // 2** 成功  200 请求成功 201 已创建
+        // 3** 重定向 （需要进一步操作以完成请求） 301 资源永久移动 302临时移动 304 未修改资源，客户端通常去请求缓存资源
+        // 4** 客户端错误 （语法错误、或无法完成请求 ） 400语义有误 401需要用户验证 403服务器拒绝 404无法在服务器找到请求资源 408 请求超时
+        // 5** 服务器错误 500服务器内部错误  501不支持该请求方法 503系统超载或服务器系统维护
+    
+        // git分布式版本控制系统
+        // 版本快照 ：Git 快照是在原有文件版本的基础上重新生成一份新的文件,类似于备份。
+        // 为了效率,如果文件没有修改,Git 不再重新存储该文件,而是只保留一个链接指向之前存储的文件。
+        // 工作区、    暂存区、 git仓库
+        // modified-> staged-> committed
+
+        // git status -s 简化查看情况
+        // git add 文件名 （全部放入：git add.）放入缓存区
+        // git commit -m 提交 
+        // git reset HEAD 文件名 （全部移除：git reset HEAD .）移除暂存区文件
+        // git commit -a -m 跳过暂存区直接提交至git仓库
+        // git rm -f 文件名  从 Git 仓库和工作区中同时移除对应的文件 
+        // git rm --cached 文件名   只从 Git 仓库中移除指定的文件,但保留工作区中对应的文件
+        
+        // 忽略文件 不纳入 Git 的管理,也不出现在未跟踪文件列表
+        // 创建一个名为 .gitignore 的配置文件,列出要忽略的文件的匹配模式
+        // 格式规范如下 : 
+        // 1 以#开头的是注释 
+        // 2 以/结尾的是目录 
+        // 3 以/开头防止递归 
+        // 4 以!开头表示取反 
+        // 5 可以使用 glob 模式进行文件和文件夹的匹配(glob 指简化了的正则表达式)
+        
+        // 查看提交记录
+        // git log
+
+        // 回退到指定版本
+        // git log --pretty=oneline //在一行上查看所有提交历史（包含版本标识）
+        // git reset --hard  版本标识
+    </script> 
+</body>
+
+</html>
